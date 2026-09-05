@@ -1,61 +1,92 @@
 # SECOND_BRAIN_FULL_PASS
 
+## Purpose
+
+Every relevant Second Brain request runs through this controlled pass. It is not a suggestion list: mandatory gates cannot be silently skipped.
+
 ## 0 — Trigger / Execution Gate
 
-Determine whether the request activates the Second Brain. If yes, execute this pass rather than improvising a partial workflow.
+Determine whether the request activates the Second Brain. If yes, initialize a governed operation. If the required Runtime control point cannot participate, do not claim completion.
 
 ## 1 — Pre-flight + State Init
 
-Initialize request state, known constraints, required authorities, dependencies, relevant system coverage and expected outcome.
+Initialize request state, known constraints, required authorities, dependencies, relevant system coverage, target state and expected outcome.
 
-## 2 — Task + System Lanes
+## 2 — Runtime Operation Init
 
-Start TASK LANE and SYSTEM LANE together.
+Create a stable operation identity and success contract. The Runtime must receive/observe the operation lifecycle and remain attached until the final verdict.
 
-## 3 — Invariant / Authority / Capability Gate
+## 3 — Task + System Lanes
 
-Check which source is authoritative and whether the required capability is actually available and wired.
+Start **TASK LANE** and **SYSTEM LANE** together. TASK handles the user's objective. SYSTEM handles relevant coverage, maintenance, integration, persistence, QA, regression, learning and trace.
 
-## 4 — Success Contract / DoD
+## 4 — Invariant / Authority / Capability Gate
 
-Define what must be true for completion. Include verification evidence where relevant.
+Resolve authority before execution. Check capability rather than assuming it. Conflicts and unavailable actuators block rather than being silently substituted.
 
-## 5 — Coverage
+Authority precedence:
 
-Retrieve the relevant architecture, project, dependency, skill, QA and historical context. Avoid blind full-vault loading.
+1. platform/system safety and hard capability constraints
+2. explicit current user instruction
+3. active canonical Obsidian controls
+4. current verified state/context
+5. high-quality external evidence
+6. historical/uncertain/superseded records
 
-## 6 — Retrieval / Research
+## 5 — Success Contract / DoD
 
-Use existing canonical knowledge first. Research externally when freshness, uncertainty or explicit user intent requires it. Record provenance.
+Define what must be true for success. Include observable verification evidence and persistence requirements where applicable.
 
-## 7 — Plan / Execute
+## 6 — Relevant Coverage
 
-Select the appropriate workflow/skill and perform the work.
+Retrieve only the relevant architecture, project, dependency, skill, QA and historical context. Do not blindly load the whole vault.
 
-## 8 — QA / Verification
+## 7 — Retrieval / Research
 
-Check factual correctness, system invariants, authority boundaries, output quality and side effects.
+Use canonical Obsidian knowledge first. Use external research when freshness, uncertainty or explicit user intent requires it. Record provenance for material external evidence.
 
-## 9 — Persistence
+## 8 — Plan / Execute
 
-Atomize newly created knowledge. Classify it. Link it. Promote only verified information to canonical status.
+Select the applicable workflow/skill and perform the work through governed adapters. Distinguish `INTENDED`, `ATTEMPTED`, `SUCCEEDED` and `VERIFIED`.
 
-## 10 — Read-back
+## 9 — Runtime Oversight
 
-Re-read the persisted target and verify that the intended state actually exists.
+The Runtime independently checks machine-verifiable execution evidence, target state, authority, freshness, invariants, persistence, read-back, integrity, dependencies, regression and trace. An assistant statement is never sufficient as sole execution proof.
 
-## 11 — Learning
+## 10 — QA / Verification
 
-Extract reusable lessons, failure modes, improvements and candidate rule/skill changes.
+Check factual correctness, authority boundaries, system invariants, output quality and side effects. Failed or contradictory evidence is not promoted to success.
 
-## 12 — Regression / Trace
+## 11 — Persistence / Integration
 
-Check that changes do not break established invariants. Record traceability for important changes.
+Atomize newly created knowledge. Classify, canonicalize, link and persist it in the authoritative target. For writes, use current-state/conditional-write protection where supported.
 
-## 13 — Lane Merge
+## 12 — Read-back / Integrity
 
-Merge TASK LANE and SYSTEM LANE only after both are complete and verified.
+Re-read the actual persisted target. Verify the intended content/state and integrity. A successful write or commit alone is insufficient.
 
-## 14 — Final Gate
+## 13 — Learning
 
-`COMPLETED` only when the success contract is satisfied and required evidence exists.
+Extract reusable lessons, failure modes, improvements and candidate rule/skill changes. Promote candidates only after verification and regression.
+
+## 14 — Regression / Trace
+
+Check that changes do not break established invariants, routes, dependencies or known canaries. Record a stable operation trace for important changes.
+
+## 15 — Runtime Verdict
+
+Allowed outcomes include `PASS`, `PASS_WITH_UNVERIFIED_EXTERNAL_STATE`, `BLOCKED`, `FAIL` and `REGRESSED`. Only `PASS` satisfies the Runtime portion of the final gate.
+
+## 16 — Lane Merge
+
+Merge TASK and SYSTEM lanes only after all applicable required gates and evidence are verified.
+
+## 17 — Final Gate
+
+`COMPLETED` only when the success contract is satisfied, required evidence exists, persistence/read-back is verified where applicable, no mandatory blocker remains and the Runtime has returned `PASS`.
+
+### Hard distinction
+
+`planned != started != executed != successful != verified != persisted != completed`
+
+Missing Runtime evidence is a control failure, not permission to continue as though the pass succeeded.
