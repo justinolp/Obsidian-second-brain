@@ -23,14 +23,14 @@
 
 | Repository | Role |
 |---|---|
-| `justinolp/Obsidian-second-brain` | Canonical architecture and operating knowledge |
+| `justinolp/Obsidian-second-brain` | Architecture and operating knowledge mirror |
 | `justinolp/runtime` | Executable Runtime and mandatory evidence/completion gate |
 | `justinolp/obsidian-sync` | Active `Baum/` sync/version/governance boundary |
 | `justinolp/trello-conector` | Minimal Trello Power-Up iframe boundary |
 
 ## Authority model
 
-**Interface → Orchestration → Control → Knowledge → Execution → Verification → Learning**
+**Interface → Runtime Gate → System Knowledge → Task Execution → System Reconciliation → Verification → Learning**
 
 | Domain | Authority / role |
 |---|---|
@@ -43,11 +43,41 @@
 
 ## Mandatory operating model
 
-Relevant requests use `SECOND_BRAIN_FULL_PASS`:
+When the user says **“Benutz das Second Brain”**, the governed mode is activated:
 
-`TRIGGER → EXECUTION GATE → RUNTIME OPERATION INIT → PRE-FLIGHT → TASK + SYSTEM LANES → AUTHORITY / CAPABILITY → SUCCESS CONTRACT → RELEVANT COVERAGE → OBSIDIAN RETRIEVAL → RESEARCH → EXECUTION → RUNTIME OVERSIGHT → QA → PERSISTENCE → READ-BACK → INTEGRITY → DEPENDENCIES → REGRESSION → LEARNING → TRACE → RUNTIME VERDICT → FINAL GATE → LANE MERGE → COMPLETED`
+```text
+SECOND_BRAIN_FULL_PASS
 
-The Runtime is a mandatory control point. A missing or contradictory Runtime verdict is not completion.
+RUNTIME OPERATION INIT
+        ↓
+SYSTEM_PRE
+        ↓
+TASK
+        ↓
+SYSTEM_POST
+        ↓
+RUNTIME FINAL ATTESTATION
+        ↓
+FINAL GATE
+        ↓
+TASK + SYSTEM MERGE
+        ↓
+COMPLETED
+```
+
+### SYSTEM_PRE — first
+
+The System Lane runs first. It retrieves the relevant canonical Obsidian/Baum state, checks authority, invariants, capabilities, freshness, dependencies, research requirements and success contract.
+
+### TASK — second
+
+The Task Lane performs the user's request using the verified System_PRE state. Material side effects require observable evidence.
+
+### SYSTEM_POST — third
+
+The System Lane runs again. It reconciles task output against the system, captures and classifies new information, integrates affected repositories/modules, persists required changes, reads them back, verifies integrity, regression and trace, and prepares final Runtime evidence.
+
+The Runtime enforces the phase order and must block non-canonical ordering.
 
 ## Core invariants
 
@@ -61,6 +91,8 @@ The Runtime is a mandatory control point. A missing or contradictory Runtime ver
 8. Canonical persistence requires actual write + read-back + integrity verification.
 9. Repository state does not prove Android state.
 10. V1 remains on-demand; no 24/7 runtime is required.
+11. The System Lane executes before and after the Task Lane.
+12. Only a verified Runtime final gate may attest `COMPLETED`.
 
 ## Learning
 
