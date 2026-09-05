@@ -1,44 +1,89 @@
 # SECOND BRAIN V1 — Canonical Architecture
 
-**Status:** CANONICAL
-**Last synchronized:** 2026-09-04
-**Source:** Trello — 🧠 Justin – Second Brain
+**Status:** CANONICAL  
+**Last reconciled:** 2026-09-05  
+**Authority:** Obsidian / Baum  
+**Engineering mirror:** `justinolp/obsidian-sync`  
+**Runtime implementation:** `justinolp/runtime`
 
-## Authority model
+## 1. Authority model
 
-- **Obsidian:** Knowledge/System Authority + primary retrieval.
-- **Runtime:** on-demand orchestration and enforcement.
-- **Trello:** operative Task / Control / Planner plane.
-- **GitHub:** code and versioning.
-- **Native Git first:** mandatory for Git/repository/bridge/sync work.
-- **V1 runtime:** on-demand only; no 24/7 runtime.
+| Domain | Authority / role |
+|---|---|
+| Knowledge & system truth | **Obsidian / Baum** |
+| Operational tasks / control state | **Trello** |
+| Code, versioning, repository history | **GitHub** |
+| Execution oversight / evidence gate | **Runtime** |
+| User-facing reasoning / interface | **ChatGPT** |
+| GitHub ↔ Android Obsidian transport | **SuperSync** |
+| Local Obsidian actuation | **Advanced URI / supported local adapter** |
 
-## Canonical route
+GitHub is not the Knowledge Authority. Trello is not a second knowledge authority. Runtime does not replace either authority; it enforces the evidence and lifecycle contracts between them.
 
-`Trigger → Pre-flight / State → Task + System Lanes → Invariant / Authority / Capability → Success Contract → PRIMARY OBSIDIAN RETRIEVAL → Runtime Coverage / State → Trello operational context → Role / Research / Plan → Execute → QA → Persist → Read-back → Learning → Trace → Regression → Lane Merge → COMPLETED`
+## 2. Four-repository system boundary
 
-## Completion invariant
+- `justinolp/runtime` — executable Runtime, deterministic completion gate, orchestration, adapters, persistence and trace.
+- `justinolp/Obsidian-second-brain` — canonical human-readable Second Brain architecture and operating knowledge.
+- `justinolp/obsidian-sync` — active `Baum/` transport/version mirror plus repository-side governance and Runtime evidence checks.
+- `justinolp/trello-conector` — minimal Trello Power-Up iframe boundary; it is not Runtime and does not become a knowledge store.
 
-`COMPLETED` is allowed only after the Task Lane and System Lane have been executed, verified, and merged.
+These repositories are complementary, not competing authorities. Cross-repository changes must preserve the authority map and be reconciled before canonical promotion.
 
-## Obsidian access truth model
+## 3. Canonical execution route
 
-`AVAILABLE → WIRED → EXECUTED → READ-BACK VERIFIED → E2E VERIFIED`
+`TRIGGER → EXECUTION GATE → PRE-FLIGHT + STATE INIT → RUNTIME OPERATION INIT → TASK + SYSTEM LANES → AUTHORITY / CAPABILITY → SUCCESS CONTRACT / DoD → RELEVANT COVERAGE → OBSIDIAN RETRIEVAL → RESEARCH WHEN REQUIRED → PLAN → EXECUTE → RUNTIME OVERSIGHT → QA / VERIFICATION → PERSISTENCE → READ-BACK → INTEGRITY → DEPENDENCIES → REGRESSION → LEARNING → TRACE → RUNTIME VERDICT → FINAL GATE → LANE MERGE → COMPLETED`
 
-A missing host exposure or connector is an integration/capability failure, not evidence that the user lacks access to Obsidian.
+The Runtime is a mandatory control point, not an after-the-fact report. If Runtime participation or required evidence is missing, the operation remains blocked/unverified and cannot be promoted to `COMPLETED`.
 
-## Preservation rules
+## 4. Truth-state model
 
-- Obsidian remains the single knowledge/system authority.
-- Trello remains operational and must not become a second knowledge authority.
-- Runtime remains on-demand.
-- No public HTTP listener / public port is required for V1.
-- Local stdio/MCP is the preferred AI-host integration pattern.
-- Knowledge is kept atomic and linked.
-- Semantic links and MOC/index structures are distinct concepts.
-- Properties are standardized deliberately, not indiscriminately.
-- Bases may provide structured views.
-- Search, Properties, Backlinks and Outgoing Links are used together for retrieval.
-- Project Hubs are supported; PARA is an organizational dimension, not the authority model.
-- Obsidian URI may be used for cross-app automation.
-- Canonical rules require verification and regression before becoming system truth.
+`INTENDED → ATTEMPTED → SUCCEEDED → VERIFIED → PERSISTED`
+
+`REGRESSED` invalidates a previously verified state when later evidence contradicts it.
+
+For capability and integration state:
+
+`DOCUMENTED → AVAILABLE → WIRED → EXECUTED → READ-BACK VERIFIED → E2E VERIFIED → ACTIVE`
+
+For cross-interface persistence, a commit, API success, generated URI, sync acknowledgement or assistant statement is not destination proof by itself.
+
+## 5. Persistence / no silent data loss
+
+No information is considered permanently saved, integrated, `ACTIVE` or `COMPLETED` until the authoritative Obsidian target has actually been written, read back and integrity-verified.
+
+Repository state proves repository state. It does not automatically prove Android Obsidian state. Device/E2E status must remain separately evidence-scoped.
+
+## 6. Non-bypass invariant
+
+The assistant may not bypass Runtime by omission, wording, alternate tooling, route changes, manual instructions, self-attestation, stale state, overwrite, deletion of evidence or a success declaration.
+
+Changing from GitHub to URI, SuperSync, Trello or another adapter does not remove the Runtime obligation. If the required Runtime actuator is unavailable, the truth state is downgraded rather than simulated.
+
+## 7. Mobile / sync boundary
+
+Canonical Android vault path: `/storage/emulated/0/Documents/Baum`  
+Repository sync root: `Baum/`
+
+`ChatGPT → Full Pass → Runtime → GitHub → SuperSync → Android Obsidian`
+
+The historical path `Second brain/SECOND_BRAIN_V1_Obsidian/SECOND_BRAIN` is not an active runtime, sync, URI, QA or completion target.
+
+## 8. Research and learning
+
+Canonical knowledge is retrieved before invention. External research is used when freshness, uncertainty or explicit user intent requires it. New information follows:
+
+`CAPTURE → ATOMIZE → CLASSIFY → CANONICALIZE → LINK → PERSIST → VERIFY → LEARN`
+
+Repeated errors become explicit rules, skills, checks or regression tests.
+
+## 9. Completion invariant
+
+`COMPLETED` is a system attestation, not conversational wording. It requires:
+
+- applicable TASK and SYSTEM lanes executed and verified;
+- Runtime oversight executed with a valid final verdict;
+- required persistence/read-back/integrity evidence;
+- applicable regression and trace checks;
+- no unresolved mandatory blocker.
+
+Only a Runtime `PASS` satisfies the Runtime portion of the final gate. `PASS_WITH_UNVERIFIED_EXTERNAL_STATE` is not full completion.
