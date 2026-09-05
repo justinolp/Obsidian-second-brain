@@ -1,0 +1,35 @@
+name: Second Brain Architecture Mirror CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: second-brain-architecture-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.0.0
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Validate canonical architecture markers
+        run: |
+          test -f "00 - Second Brain/README.md"
+          test -f "00 - Second Brain/SECOND BRAIN V1 — Canonical Architecture.md"
+          grep -Fq "SYSTEM_PRE" "00 - Second Brain/README.md"
+          grep -Fq "SYSTEM_POST" "00 - Second Brain/README.md"
+          grep -Fq "justinolp/runtime" "00 - Second Brain/README.md"
+          grep -Fq "justinolp/obsidian-sync" "00 - Second Brain/README.md"
+          grep -Fq "justinolp/trello-conector" "00 - Second Brain/README.md"
+      - name: Audit secret-like material
+        run: |
+          ! grep -RInE '(ghp_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,}|BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY)' . --exclude-dir=.git
