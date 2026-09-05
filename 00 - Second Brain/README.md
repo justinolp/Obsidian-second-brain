@@ -40,6 +40,7 @@
 | Execution oversight / evidence | **Runtime** |
 | Reasoning / user interface | **ChatGPT** |
 | Mobile transport | **SuperSync** |
+| Mobile E2E challenge/response | **Second Brain E2E Agent + pinned device key + CI verifier** |
 
 ## Mandatory operating model
 
@@ -79,6 +80,23 @@ The System Lane runs again. It reconciles task output against the system, captur
 
 The Runtime enforces the phase order and must block non-canonical ordering.
 
+## E2E transport and verification
+
+The canonical mobile E2E boundary is:
+
+```text
+Runtime challenge
+→ obsidian-sync / SuperSync
+→ Android Obsidian
+→ Second Brain E2E Agent
+→ SuperSync return
+→ GitHub read-back
+→ P-256 cryptographic verifier
+→ Runtime evidence
+```
+
+The E2E Agent is mobile-capable and uses the Obsidian Vault API. The repository-side verifier validates the exact challenge response against the pinned public key. A successful E2E test does not make every repository write an Android-state proof; `COMMIT ≠ MOBILE STATE` remains a hard invariant.
+
 ## Core invariants
 
 1. One canonical authority per kind of truth.
@@ -93,6 +111,7 @@ The Runtime enforces the phase order and must block non-canonical ordering.
 10. V1 remains on-demand; no 24/7 runtime is required.
 11. The System Lane executes before and after the Task Lane.
 12. Only a verified Runtime final gate may attest `COMPLETED`.
+13. Device E2E identity is pinned; a changed key is a new registration and cannot silently replace the canonical identity.
 
 ## Learning
 
